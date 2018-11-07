@@ -1,28 +1,20 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux'
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import store from './store'
-import axios from 'axios'
 
-class App extends Component {
-  componentDidMount() {
-    axios.get('/users')
-      .then(res => {
-        console.log(res)
-      })
-  }
+import { Button } from 'antd-mobile';
 
-  render() {
-    return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <div className="App">
-            React app
-          </div>
-        </BrowserRouter>
-      </Provider>
-    );
-  }
+const App = () =>{
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <div className="App">
+          <Button type="primary" size="small" inline>small</Button>
+        </div>
+      </BrowserRouter>
+    </Provider>
+  )
 }
 
 export default App;
