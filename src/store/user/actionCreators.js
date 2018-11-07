@@ -1,0 +1,48 @@
+import * as constants from './constants'
+import axios from 'axios'
+const authSuccess = (obj) => {
+  const {pwd, ...data} = obj
+  return {type: constants.AUTH_SUCCESS, payload: data}
+}
+const errorMsg = (msg) => {
+  return {msg, type: constants.ERROR_MSG}
+}
+// 注册
+export function register({user, pwd, repeatpwd, type}) {
+  if (!user || !pwd || !type) {
+    return errorMsg('用户名密码必须输入')
+  }
+  if (pwd !== repeatpwd) {
+    return errorMsg('密码和确认密码不同')
+  }
+
+  return dispatch => {
+    axios.post('/user/register', {user, pwd, type})
+      .then(res => {
+        if (res.status === 200 && res.data.code === 0) {
+          dispatch(authSuccess(res.data.data))
+        } else {
+          dispatch(errorMsg(res.data.msg))
+        }
+      })
+  }
+}
+
+// 登出
+export function logoutSubmit() {
+  return {type: LOGIN_OUT}
+}
+
+// 修改
+export function update(data) {
+  return dispatch => {
+    axios.post('/user/update', data)
+      .then(res => {
+        if (res.status === 200 && res.data.code === 0) {
+          dispatch(authSuccess(res.data.data))
+        } else {
+          dispatch(errorMsg(res.data.msg))
+        }
+      })
+  }
+}

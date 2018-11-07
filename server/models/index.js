@@ -25,7 +25,7 @@ const models = {
     'create_time': {'type': Number, 'default': new Date().getTime()}
   }
 }
-
+// 批量建模
 for (let m in models) {
   mongoose.model(m, new Schema(models[m]))
 }

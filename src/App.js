@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import store from './store'
+import store from './store' // 合并的大reducer
+import './common/js/config' // axios拦截器
+import './common/css/index.css'
+import 'antd-mobile/dist/antd-mobile.css';
+import {Button} from 'antd-mobile';
+import Login from './Container/login'
+import Register from './Container/register'
+import Index from './component/authroute'
 
-import { Button } from 'antd-mobile';
-
-const App = () =>{
+const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <div className="App">
-          <Button type="primary" size="small" inline>small</Button>
+          <Index></Index>
+          <Switch>
+            <Route path='/login' component={Login}></Route>
+            <Route path='/register' component={Register}></Route>
+          </Switch>
         </div>
       </BrowserRouter>
     </Provider>
