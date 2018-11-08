@@ -8,6 +8,8 @@ import 'antd-mobile/dist/antd-mobile.css';
 import {Button} from 'antd-mobile';
 import Login from './Container/login'
 import Register from './Container/register'
+import BossInfo from './Container/boss_info'
+import GeniusInfo from './Container/genius_info'
 import Index from './component/authroute'
 
 const App = () => {
@@ -17,6 +19,8 @@ const App = () => {
         <div className="App">
           <Index></Index>
           <Switch>
+            <Route path='/bossinfo' component={BossInfo}></Route>
+            <Route path='/geniusinfo' component={GeniusInfo}></Route>
             <Route path='/login' component={Login}></Route>
             <Route path='/register' component={Register}></Route>
           </Switch>

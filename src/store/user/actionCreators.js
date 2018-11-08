@@ -7,6 +7,7 @@ const authSuccess = (obj) => {
 const errorMsg = (msg) => {
   return {msg, type: constants.ERROR_MSG}
 }
+
 // 注册
 export function register({user, pwd, repeatpwd, type}) {
   if (!user || !pwd || !type) {

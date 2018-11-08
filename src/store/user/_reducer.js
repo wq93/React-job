@@ -1,5 +1,5 @@
 import * as constants from './constants'
-// import {fromJS} from 'immutable';
+import {getRedirectPath} from '../../common/js/util'
 
 const defaultState = {
   isAuth: false,
@@ -12,7 +12,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case constants.AUTH_SUCCESS:
-      return {...state, msg: '', isAuth: true, ...action.payload}
+      return {...state, msg: '', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload}
     case constants.LOAD_DATA:
       return {...state, ...action.payload}
     case constants.ERROR_MSG:

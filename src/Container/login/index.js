@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
-import Logo from '../../component/logo/logo'
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
+import {Redirect} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {actionCreators} from "../../store/user";
+import Logo from '../../component/logo/logo'
 
 const mapStateToProps = (state) => ({
   isAuth: state.getIn(['user', 'isAuth']),
   msg: state.getIn(['user', 'msg']),
-  user: state.getIn(['user', 'user']),
+  redirectTo: state.getIn(['user', 'redirectTo']),
 })
 const mapDispathToProps = (dispatch) => {
   return {
@@ -19,7 +20,7 @@ const mapDispathToProps = (dispatch) => {
 }
 
 @withRouter
-@connect(mapStateToProps,mapDispathToProps)
+@connect(mapStateToProps, mapDispathToProps)
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -33,6 +34,8 @@ class Login extends Component {
   render() {
     return (
       <div>
+        {/*登录路由跳转*/}
+        {(this.props.redirectTo && this.props.redirectTo !== '/login') ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo></Logo>
         <h2>注册页面</h2>
         {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : ''}
