@@ -7,7 +7,6 @@ import {actionCreators} from "../../store/user";
 import Logo from '../../component/logo/logo'
 
 const mapStateToProps = (state) => ({
-  isAuth: state.getIn(['user', 'isAuth']),
   msg: state.getIn(['user', 'msg']),
   redirectTo: state.getIn(['user', 'redirectTo']),
 })

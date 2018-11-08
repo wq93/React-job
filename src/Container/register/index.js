@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import Logo from '../../component/logo/logo'
+import {Redirect} from 'react-router-dom'
 import {List, InputItem, Radio, WingBlank, WhiteSpace, Button} from 'antd-mobile'
+import Logo from '../../component/logo/logo'
 import {actionCreators} from '../../store/user'
 
 const mapStateToProps = (state) => ({
-  isAuth: state.getIn(['user', 'isAuth']),
   msg: state.getIn(['user', 'msg']),
   user: state.getIn(['user', 'user']),
+  redirectTo: state.getIn(['user', 'redirectTo']),
 })
 
 const mapDispathToProps = (dispatch) => {
@@ -50,6 +51,7 @@ class Register extends Component {
       }]
     return (
       <div>
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo></Logo>
         <WingBlank>
           <List>
