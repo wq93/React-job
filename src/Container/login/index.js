@@ -2,13 +2,32 @@ import React, {Component} from 'react'
 import Logo from '../../component/logo/logo'
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {actionCreators} from "../../store/user";
+
+const mapStateToProps = (state) => ({
+  isAuth: state.getIn(['user', 'isAuth']),
+  msg: state.getIn(['user', 'msg']),
+  user: state.getIn(['user', 'user']),
+})
+const mapDispathToProps = (dispatch) => {
+  return {
+    login(info) {
+      dispatch(actionCreators.login(info))
+    },
+  }
+}
 
 @withRouter
+@connect(mapStateToProps,mapDispathToProps)
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.handleClickLogin = this.handleClickLogin.bind(this)
-    this.handleClickRegister = this.handleClickRegister.bind(this)
+    this.state = {
+      user: '',
+      pwd: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
   }
 
   render() {
@@ -16,14 +35,23 @@ class Login extends Component {
       <div>
         <Logo></Logo>
         <h2>注册页面</h2>
+        {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : ''}
         <WingBlank>
           <List>
-            <InputItem>用户名</InputItem>
+            <InputItem onChange={(v) => {
+              this.handleChange('user', v)
+            }}>用户名</InputItem>
             <WhiteSpace/>
-            <InputItem type="password">密码</InputItem>
+            <InputItem type="password"
+                       onChange={(v) => {
+                         this.handleChange('pwd', v)
+                       }}>密码</InputItem>
             <WhiteSpace/>
           </List>
-          <Button type='primary' onClick={this.handleClickLogin}>登录</Button>
+          <Button type='primary'
+                  onClick={() => {
+                    this.props.login(this.state)
+                  }}>登录</Button>
           <WhiteSpace/>
           <Button type='primary'
                   onClick={() => {
@@ -34,12 +62,10 @@ class Login extends Component {
     )
   }
 
-  handleClickLogin() {
-    console.log('handlerClickLogin')
-  }
-
-  handleClickRegister() {
-    console.log('handlerClickRegister')
+  handleChange(key, val) {
+    this.setState({
+      [key]: val
+    })
   }
 }
 

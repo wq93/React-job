@@ -28,6 +28,23 @@ export function register({user, pwd, repeatpwd, type}) {
   }
 }
 
+// 登录
+export function login({user, pwd}) {
+  if (!user || !pwd) {
+    return errorMsg('用户名密码必须输入')
+  }
+  return dispatch => {
+    axios.post('/user/login', {user, pwd})
+      .then(res => {
+        if (res.status === 200 && res.data.code === 0) {
+          dispatch(authSuccess(res.data.data))
+        } else {
+          dispatch(errorMsg(res.data.msg))
+        }
+      })
+  }
+}
+
 // 登出
 export function logoutSubmit() {
   return {type: LOGIN_OUT}
