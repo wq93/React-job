@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {Modal, Button, WhiteSpace, WingBlank, Toast} from 'antd-mobile';
-import {connect} from 'react-redux'
-import {actionCreators} from '../../store/user'
+import browserCookie from 'browser-cookies'
 import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {Modal, Button, WhiteSpace, WingBlank, Toast} from 'antd-mobile';
+import {actionCreators} from '../../store/user'
 
 const alert = Modal.alert;
 const mapStateToProps = (state) => ({
@@ -28,13 +29,14 @@ class User extends Component {
                 {text: 'Cancel', onPress: () => console.log('cancel')},
                 {
                   text: 'Ok', onPress: () => {
+                    browserCookie.erase('userid')
                     this.props.logoutSubmit()
                   }
                 },
               ])
             }
           >
-            confirm
+            退出登录
           </Button>
         </div>
       ) : <Redirect to={redirectTo}/>
