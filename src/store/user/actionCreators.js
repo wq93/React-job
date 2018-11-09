@@ -48,7 +48,7 @@ export function login({user, pwd}) {
 
 // 登出
 export function logoutSubmit() {
-  return {type: LOGIN_OUT}
+  return {type: constants.LOGIN_OUT}
 }
 
 // 修改

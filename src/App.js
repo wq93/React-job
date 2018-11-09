@@ -11,6 +11,7 @@ import Register from './Container/register'
 import BossInfo from './Container/boss_info'
 import GeniusInfo from './Container/genius_info'
 import Index from './component/authroute'
+import Dashboard from './component/dashboard'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path='/geniusinfo' component={GeniusInfo}></Route>
             <Route path='/login' component={Login}></Route>
             <Route path='/register' component={Register}></Route>
+            <Route component={Dashboard}></Route>
           </Switch>
         </div>
       </BrowserRouter>
