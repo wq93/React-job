@@ -36,7 +36,6 @@ class Login extends Component {
         {/*登录路由跳转*/}
         {(this.props.redirectTo && this.props.redirectTo !== '/login') ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo></Logo>
-        <h2>注册页面</h2>
         {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : ''}
         <WingBlank>
           <List>

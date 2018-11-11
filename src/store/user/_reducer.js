@@ -1,15 +1,16 @@
 import * as constants from './constants'
 import {getRedirectPath} from '../../common/js/util'
 
+const initState = {
+  isAuth: false,
+  msg: '',
+  user: '',
+  pwd: '',
+  type: ''
+}
 
-const defaultState = (localStorage.getItem('jobUser') && JSON.parse(localStorage.getItem('jobUser'))) ||
-  {
-    isAuth: false,
-    msg: '',
-    user: '',
-    pwd: '',
-    type: ''
-  }
+const defaultState = (localStorage.getItem('jobUser') && JSON.parse(localStorage.getItem('jobUser'))) || initState
+
 
 export default (state = defaultState, action) => {
   switch (action.type) {
@@ -25,15 +26,7 @@ export default (state = defaultState, action) => {
     case constants.ERROR_MSG:
       return {...state, isAuth: false, msg: action.msg}
     case constants.LOGIN_OUT:
-      return {
-        ...state, redirectTo: '/login', ...{
-          isAuth: false,
-          msg: '',
-          user: '',
-          pwd: '',
-          type: ''
-        }
-      }
+      return {redirectTo: '/login', ...initState}
     default:
       return state
   }

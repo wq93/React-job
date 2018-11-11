@@ -39,7 +39,7 @@ class Register extends Component {
   }
 
   render() {
-    const {user} = this.props
+    const {redirectTo, user} = this.props
     const RadioItem = Radio.RadioItem
     const typeList = [
       {
@@ -51,7 +51,7 @@ class Register extends Component {
       }]
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
+        {redirectTo && user ? <Redirect to={redirectTo}/> : null}
         <Logo></Logo>
         <WingBlank>
           <List>
