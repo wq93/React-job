@@ -29,6 +29,7 @@ class User extends Component {
                 {text: 'Cancel', onPress: () => console.log('cancel')},
                 {
                   text: 'Ok', onPress: () => {
+                    localStorage.setItem('jobUser', '')
                     browserCookie.erase('userid')
                     this.props.logoutSubmit()
                   }

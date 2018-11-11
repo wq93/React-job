@@ -25,8 +25,15 @@ export default (state = defaultState, action) => {
     case constants.ERROR_MSG:
       return {...state, isAuth: false, msg: action.msg}
     case constants.LOGIN_OUT:
-      localStorage.setItem('jobUser', '')
-      return {...defaultState, redirectTo: '/login'}
+      return {
+        ...state, redirectTo: '/login', ...{
+          isAuth: false,
+          msg: '',
+          user: '',
+          pwd: '',
+          type: ''
+        }
+      }
     default:
       return state
   }
