@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {actionCreators} from "../../store/user";
 import Logo from '../../component/logo/logo'
+import userForm from '../../component/hoc/form'
 
 const mapStateToProps = (state) => ({
   msg: state.getIn(['user', 'msg']),
@@ -18,16 +19,12 @@ const mapDispathToProps = (dispatch) => {
   }
 }
 
+@userForm
 @withRouter
 @connect(mapStateToProps, mapDispathToProps)
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: '',
-      pwd: ''
-    }
-    this.handleChange = this.handleChange.bind(this)
   }
 
   render() {
@@ -40,18 +37,18 @@ class Login extends Component {
         <WingBlank>
           <List>
             <InputItem onChange={(v) => {
-              this.handleChange('user', v)
+              this.props.handleChange('user', v)
             }}>用户名</InputItem>
             <WhiteSpace/>
             <InputItem type="password"
                        onChange={(v) => {
-                         this.handleChange('pwd', v)
+                         this.props.handleChange('pwd', v)
                        }}>密码</InputItem>
             <WhiteSpace/>
           </List>
           <Button type='primary'
                   onClick={() => {
-                    this.props.login(this.state)
+                    this.props.login(this.props.state)
                   }}>登录</Button>
           <WhiteSpace/>
           <Button type='primary'
@@ -61,12 +58,6 @@ class Login extends Component {
         </WingBlank>
       </div>
     )
-  }
-
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
   }
 }
 

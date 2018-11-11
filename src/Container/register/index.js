@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom'
 import {List, InputItem, Radio, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import Logo from '../../component/logo/logo'
 import {actionCreators} from '../../store/user'
+import userForm from '../../component/hoc/form'
 
 const mapStateToProps = (state) => ({
   msg: state.getIn(['user', 'msg']),
@@ -19,23 +20,15 @@ const mapDispathToProps = (dispatch) => {
   }
 }
 
+@userForm
 @connect(mapStateToProps, mapDispathToProps)
 class Register extends Component {
   constructor(props) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.state = {
-      user: '',
-      pwd: '',
-      repeatpwd: '',
-      type: 'genius' // 或者boss
-    }
   }
 
-  handleChange(key, value) {
-    this.setState({
-      [key]: value
-    })
+  componentDidMount() {
+    this.props.handleChange('type', 'genius')
   }
 
   render() {
@@ -58,24 +51,24 @@ class Register extends Component {
             {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : ''}
             <InputItem
               onChange={v => {
-                this.handleChange('user', v)
+                this.props.handleChange('user', v)
               }}>用户名</InputItem>
             <WhiteSpace/>
             <InputItem type='password'
                        onChange={v => {
-                         this.handleChange('pwd', v)
+                         this.props.handleChange('pwd', v)
                        }}>密码</InputItem>
             <WhiteSpace/>
             <InputItem type='password'
                        onChange={v => {
-                         this.handleChange('repeatpwd', v)
+                         this.props.handleChange('repeatpwd', v)
                        }}>确认密码</InputItem>
             <WhiteSpace/>
             {typeList.map(item => (
               <React.Fragment key={item.key}>
-                <RadioItem checked={this.state.type === item.key}
+                <RadioItem checked={this.props.state.type === item.key}
                            onChange={() => {
-                             this.handleChange('type', item.key)
+                             this.props.handleChange('type', item.key)
                            }}>{item.val}
                 </RadioItem>
                 <WhiteSpace/>
@@ -84,7 +77,7 @@ class Register extends Component {
           </List>
           <Button type='primary'
                   onClick={() => {
-                    this.props.register(this.state)
+                    this.props.register(this.props.state)
                   }}>注册</Button>
         </WingBlank>
       </div>
