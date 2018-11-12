@@ -3,7 +3,7 @@ const config = require('./common/config');
 const db = mongoose.connection;
 
 // 连接mongoDB数据库
-mongoose.connect(config.db_url)
+mongoose.connect(config.db_url, {useNewUrlParser: true})
 
 db.on("connected", function () {
   console.log("MongoDB connected sucess")
