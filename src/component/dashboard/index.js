@@ -8,14 +8,26 @@ import Boss from '../boss'
 import Genius from '../genius'
 import Msg from '../msg'
 import User from '../user'
+import {actionCreators} from '../../store/chat'
 
 const mapStateToProps = state => (
   {
-    type: state.getIn(['user', 'type'])
+    type: state.getIn(['user', 'type']),
+    _id: state.getIn(['user', '_id']),
   }
 )
 const mapDispatchToProps = dispatch => (
-  {}
+  {
+    sendmsg(msg) {
+      dispatch(actionCreators.sendMsg(msg))
+    },
+    recvMsg(userid) {
+      dispatch(actionCreators.recvMsg(userid))
+    },
+    getMsgList(userid) {
+      dispatch(actionCreators.getMsgList(userid))
+    }
+  }
 )
 
 @withRouter
@@ -23,6 +35,11 @@ const mapDispatchToProps = dispatch => (
 class Dashboard extends Component {
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    this.props.getMsgList(this.props._id)
+    this.props.recvMsg(this.props._id)
   }
 
   render() {

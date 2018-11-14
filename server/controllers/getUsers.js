@@ -6,6 +6,12 @@ module.exports = async (ctx, next) => {
 
   try {
     list = await User.find()
+    ctx.body = {
+      code: 0,
+      data: {
+        list
+      }
+    }
   } catch (e) {
     ctx.state = {
       code: -1,
@@ -13,12 +19,6 @@ module.exports = async (ctx, next) => {
         errorInfo: e,
         msg: '失败'
       },
-    }
-  }
-  ctx.body = {
-    code: 0,
-    data: {
-      list
     }
   }
 }

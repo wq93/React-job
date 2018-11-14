@@ -10,7 +10,7 @@ import Login from './Container/login'
 import Register from './Container/register'
 import BossInfo from './Container/boss_info'
 import GeniusInfo from './Container/genius_info'
-import Index from './component/authroute'
+import AuthRoute from './component/authroute'
 import Dashboard from './component/dashboard'
 import Chat from './component/chat'
 
@@ -19,7 +19,7 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <div className="App">
-          <Index></Index>
+          <AuthRoute></AuthRoute>
           <Switch>
             <Route path='/bossinfo' component={BossInfo}></Route>
             <Route path='/geniusinfo' component={GeniusInfo}></Route>
