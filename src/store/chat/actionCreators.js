@@ -1,6 +1,7 @@
 import * as constants from './constants'
 import axios from 'axios'
 import io from 'socket.io-client';
+import {actionCreators} from "./index";
 
 const socket = io('ws://localhost:3030')
 const msgList = (msgs, users, userid) => {
@@ -26,8 +27,8 @@ export function sendMsg({from, to, msg}) {
 export function recvMsg(userid) {
   return (dispatch) => {
     socket.on('recvmsg', data => {
-      console.log(data)
       dispatch(msgRecv({data, userid}))
+      dispatch(getMsgList(userid))
     })
   }
 }
@@ -48,7 +49,8 @@ export function readMsg(from) {
 
 //获取聊天列表
 export function getMsgList(userid) {
-  return (dispathch) => {
+  return (dispathch,getState) => {
+    // console.log(getState().toJS())
     axios.get('/user/getmsglist')
       .then(res => {
         if (res.data.code === 0) {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile'
 import {connect} from 'react-redux'
+import QueueAnim from 'rc-queue-anim';
 import {actionCreators} from '../../store/chat'
 import {getChatId} from '../../common/js/util'
 
@@ -51,7 +52,6 @@ class Chat extends Component {
     const from = this.props._id
     this.props.sendmsg({msg, to, from})
     this.setState({text: ''})
-    this.props.getMsgList(this.props._id)
   }
 
   render() {
@@ -70,7 +70,7 @@ class Chat extends Component {
                 }}>
           {users[userid] && users[userid].name}
         </NavBar>
-        <div>
+        <QueueAnim delay={100}>
           {chatmsgs.map(v => {
             const avatar = require(`../../common/img/${users[v.from].avatar}.png`)
             return v.from === userid ? (
@@ -89,7 +89,7 @@ class Chat extends Component {
               </List>
             )
           })}
-        </div>
+        </QueueAnim>
         <div className='stick-footer'>
           <InputItem
             placeholder='请输入'

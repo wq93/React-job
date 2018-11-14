@@ -3,7 +3,6 @@ const User = model.getModel('user')
 
 module.exports = async (ctx, next) => {
   let {type} = ctx.request.query
-  console.log(type)
   try {
     let list = await User.find({type})
     ctx.body = {
