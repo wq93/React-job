@@ -34,11 +34,12 @@ export function recvMsg(userid) {
 }
 
 // 读取消息
+// 清空的是谁发来的消息,所以变成了from的id
 export function readMsg(from) {
   return (dispatch, getState) => {
     axios.post('/user/readmsg', {from})
       .then(res => {
-        const userid = getState().user._id
+        const userid = getState().toJS().user._id
         const num = res.data.num
         if (res.data.code === 0) {
           dispatch(msgRead({userid, from, num}))
@@ -50,7 +51,6 @@ export function readMsg(from) {
 //获取聊天列表
 export function getMsgList(userid) {
   return (dispathch,getState) => {
-    // console.log(getState().toJS())
     axios.get('/user/getmsglist')
       .then(res => {
         if (res.data.code === 0) {

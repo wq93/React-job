@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => ({
   sendmsg(msg) {
     dispatch(actionCreators.sendMsg(msg))
   },
+  readMsg(to) {
+    dispatch(actionCreators.readMsg(to))
+  },
   recvMsg(userid) {
     dispatch(actionCreators.recvMsg(userid))
   },
@@ -45,7 +48,11 @@ class Chat extends Component {
       this.props.recvMsg(this.props._id)
     }
   }
-
+  componentWillUnmount() {
+    // 在离开当前路由时 修改已读取
+    const to = this.props.match.params.user
+    this.props.readMsg(to) //给谁发的ID
+  }
   handleSubmit() {
     const msg = this.state.text
     const to = this.props.match.params.user
