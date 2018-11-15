@@ -2,17 +2,18 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {List, Badge} from 'antd-mobile'
 
-const mapStateToProps = state=>({
+const mapStateToProps = state => ({
   _id: state.getIn(['user', '_id']),
   users: state.getIn(['chat', 'users']),
   chatmsg: state.getIn(['chat', 'chatmsg']),
 })
 
-@connect(mapStateToProps,null)
+@connect(mapStateToProps, null)
 class Msg extends Component {
   getLaste(arr) { // 获取数组最后一项
     return arr[arr.length - 1]
   }
+
   render() {
     const {Item} = List
     const {Brief} = Item
@@ -36,15 +37,15 @@ class Msg extends Component {
       <div>
         <List>
           {
-            chatList.map(item =>{
+            chatList.map(item => {
               const lastItem = this.getLaste(item) // 数组最后一项
               const targetId = item[0].from === userid ? item[0].to : item[0].from // 当前用户id
               const name = users[targetId] && users[targetId].name // 当前用户名
               const unreadNum = item.filter(v => !v.read && v.to === userid).length // 过滤未读数量
-              return(
+              return (
                 <Item
                   extra={<Badge text={unreadNum}></Badge>}
-                  thumb={users[targetId].avatar ? require(`../../common/img/${users[targetId].avatar}.png`) : null}
+                  thumb={users[targetId] && users[targetId].avatar ? require(`../../common/img/${users[targetId].avatar}.png`) : null}
                   key={lastItem._id}
                   arrow="horizontal"
                   onClick={() => {

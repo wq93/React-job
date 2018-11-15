@@ -8,10 +8,11 @@ module.exports = async (ctx, next) => {
   try {
     let result = await Chat.update({from, to: userId},
       {'$set': {read: true}},
-      {'multi': true})
+      {'multi': true} // 多行修改
+    )
     ctx.body = {
       code: 0,
-      num: result.nModified
+      num: result.nModified // 修改了几条
     }
   } catch (e) {
     ctx.state = {

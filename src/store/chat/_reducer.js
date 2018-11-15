@@ -23,6 +23,7 @@ export default (state = initState, action) => {
       return {
         ...state,
         // 当前谁发给我的消息
+        // 修改read的状态
         chatmsg: state.chatmsg.map(v => ({...v, read: v.from === from ? true : v.read})),
         unread: state.unread - num
       }
