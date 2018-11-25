@@ -78,18 +78,16 @@ class Dashboard extends Component {
       }
     ]
     // 让动画生效, 只渲染一个route,根据当前的path决定组件
-    console.log(pathname)
+    const path = navList.find(v => v.path === pathname)
     return (
       <div>
         <NavBar className='fixd-header' mode='dard'>
           {navList.find(v => v.path === pathname).title}
         </NavBar>
         <div className='dashboard-info'>
-          <Switch>
-            {
-              navList.map(page => (<Route key={page.path} path={page.path} component={page.component}></Route>))
-            }
-          </Switch>
+          <QueueAnim type='scaleY' duration={450}>
+            <Route key={path.path} path={path.path} component={path.component}></Route>
+          </QueueAnim>
         </div>
         <NavLinkBar data={navList}></NavLinkBar>
       </div>
