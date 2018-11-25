@@ -1,6 +1,5 @@
 require('./db') //链接数据库
-import Koa from 'koa';
-
+const Koa = require('koa')
 const app = new Koa();
 const bodyParser = require('koa-bodyparser')
 const config = require('./common/config')
