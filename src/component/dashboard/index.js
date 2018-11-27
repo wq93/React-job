@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {NavBar} from 'antd-mobile'
 import {connect} from 'react-redux'
-import {withRouter, Switch, Route} from 'react-router-dom'
+import {withRouter, Switch, Route,Redirect} from 'react-router-dom'
 import QueueAnim from 'rc-queue-anim';
 import NavLinkBar from '../nav_link'
 import Boss from '../boss'
@@ -80,6 +80,7 @@ class Dashboard extends Component {
     // 让动画生效, 只渲染一个route,根据当前的path决定组件
     const path = navList.find(v => v.path === pathname)
     return (
+      path?
       <div>
         <NavBar className='fixd-header' mode='dard'>
           {navList.find(v => v.path === pathname).title}
@@ -90,7 +91,7 @@ class Dashboard extends Component {
           </QueueAnim>
         </div>
         <NavLinkBar data={navList}></NavLinkBar>
-      </div>
+      </div>: <Redirect to={'login'}></Redirect>  
     )
   }
 }
