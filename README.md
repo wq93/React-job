@@ -11,7 +11,7 @@
 5.	利用Node.js提供RESTful接口,mongoDB数据库存储数据,使用Mongoose做桥接
 6.	配置 ESLint语法校验，保证代码的规范性
 
-### 安装与运行
+## 安装与运行
 
 - clone项目
 
@@ -27,7 +27,7 @@
 
 - 本地编译
 
-  `npm start // 开发环境运行`
+  `npm run dev // 开发环境运行`
 
 - 打包编译
 
